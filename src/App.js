@@ -1,7 +1,5 @@
 import ProductFeature from 'features/Product';
-import { useEffect } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import productApi from './api/productApi';
 import './App.css';
 import Header from './components/Header/Header';
 import NotFound from './components/NotFound/NotFound';

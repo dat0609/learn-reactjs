@@ -13,7 +13,6 @@ ProductList.defaultProps = {
 
 function ProductList(props) {
   const { data } = props;
-  const { length } = props;
   return (
     <>
       <Box>
