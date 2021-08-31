@@ -1,23 +1,30 @@
-import logo from './logo.svg';
+import ProductFeature from 'features/Product';
+import { useEffect } from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import productApi from './api/productApi';
 import './App.css';
+import Header from './components/Header/Header';
+import NotFound from './components/NotFound/NotFound';
+import CounterFeature from './features/Counter/CounterFeature';
+import AlbumFeature from './features/Song';
+import TodoFeature from './features/Todo';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+
+      <Switch>
+        <Redirect from="/home" to="/" exact />
+        <Redirect from="/post-list/:postId" to="/posts/:postId" exact />
+
+        <Route path="/" component={CounterFeature} exact />
+        <Route path="/todo-list" component={TodoFeature} />
+        <Route path="/album" component={AlbumFeature} />
+        <Route path="/product" component={ProductFeature} />
+
+        <Route component={NotFound} />
+      </Switch>
     </div>
   );
 }
