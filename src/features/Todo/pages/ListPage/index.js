@@ -1,8 +1,8 @@
+import TodoList from 'features/Todo/components/TodoList';
 import queryString from 'query-string';
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import TodoForm from '../../components/TodoForm/TodoForm';
-import TodoList from 'D:\\Html\\react-begin\\src\\features\\Todo\\components\\TodoList';
 
 function ListPage(props) {
   const initTodoList = [
