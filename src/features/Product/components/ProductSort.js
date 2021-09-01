@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { Tab, Tabs } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 ProductSort.propTypes = {
   currentSort: PropTypes.string,
@@ -15,11 +15,13 @@ function ProductSort(props) {
   };
 
   return (
-    <Tabs value={currentSort} indicatorColor="primary" textColor="primary" onChange={handleSortChange}>
-      <Tab label="Giá thấp tới cao" value="salePrice:ASC"></Tab>
-      <Tab label="Giá cao tới thấp" value="salePrice:DESC"></Tab>
-      <Tab label="Sort by name" value="name:ASC"></Tab>
-    </Tabs>
+    <>
+      <Tabs value={currentSort} indicatorColor="primary" textColor="primary" onChange={handleSortChange}>
+        <Tab label="Giá thấp tới cao" value="salePrice:ASC"></Tab>
+        <Tab label="Giá cao tới thấp" value="salePrice:DESC"></Tab>
+        <Tab label="Sort by name" value="name:ASC"></Tab>
+      </Tabs>
+    </>
   );
 }
 

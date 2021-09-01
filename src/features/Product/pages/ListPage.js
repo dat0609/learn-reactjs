@@ -2,10 +2,13 @@ import { Box, Container, Grid, makeStyles, Paper } from '@material-ui/core';
 import { Pagination } from '@material-ui/lab';
 import productApi from 'api/productApi';
 import React, { useEffect, useState } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
+import FilterViewer from '../components/Filters/FilterViewer';
 import ProductFilters from '../components/ProductFilters';
 import ProductList from '../components/ProductList';
 import ProductSkeletonList from '../components/ProductSkeletonList';
 import ProductSort from '../components/ProductSort';
+import queryString from 'query-string';
 
 ListPage.propTypes = {};
 
@@ -29,17 +32,30 @@ const useStyles = makeStyles((theme) => ({
 
 function ListPage(props) {
   const classes = useStyles();
+  const history = useHistory();
+  const location = useLocation();
+  const queryParams = queryString.parse(location.search);
+
   const [productList, setProductList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [pagination, setPagination] = useState({
     count: 1,
     page: 1,
   });
-  const [filter, setFilter] = useState({
-    _page: 1,
-    _limit: 12,
-    _sort: 'salePrice:ASC',
-  });
+  const [filter, setFilter] = useState(() => ({
+    ...queryParams,
+    _page: Number.parseInt(queryParams._page) || 1,
+    _limit: Number.parseInt(queryParams._limit) || 12,
+    _sort: queryParams._sort || 'salePrice:ASC',
+  }));
+
+  useEffect(() => {
+    //set filter into URL
+    history.push({
+      path: history.location.path,
+      search: queryString.stringify(filter),
+    });
+  }, [history, filter]);
 
   useEffect(() => {
     (async () => {
@@ -76,6 +92,10 @@ function ListPage(props) {
     }));
   };
 
+  const setNewFilter = (newFilterValue) => {
+    setFilter(newFilterValue);
+  };
+
   return (
     <Box>
       <Container>
@@ -89,6 +109,7 @@ function ListPage(props) {
           <Grid item className={classes.right}>
             <Paper elevation={0}>
               <ProductSort currentSort={filter._sort} onChange={handleSortChange} />
+              <FilterViewer filter={filter} onChange={setNewFilter} />
 
               {loading ? <ProductSkeletonList /> : <ProductList data={productList} />}
               <Box className={classes.page}>
