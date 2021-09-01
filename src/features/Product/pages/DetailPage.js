@@ -1,6 +1,7 @@
 import { Box, Container, Grid, makeStyles, Paper } from '@material-ui/core';
 import React from 'react';
 import { useRouteMatch } from 'react-router-dom';
+import AddToCartForm from '../components/AddToCartForm';
 import ProductInfo from '../components/ProductInfo';
 import ProductThumbnail from '../components/ProductThumbnail';
 import useProductDetail from '../Hooks/useProductDetail';
@@ -38,6 +39,11 @@ function DetailPage(props) {
   if (loading) {
     return <Box>Loading</Box>;
   }
+
+  const handleAddToCart = (values) => {
+    console.log(values);
+  };
+
   return (
     <Box>
       <Container>
@@ -48,6 +54,7 @@ function DetailPage(props) {
             </Grid>
             <Grid item className={classes.right}>
               <ProductInfo product={product} />
+              <AddToCartForm onSubmit={handleAddToCart} />
             </Grid>
           </Grid>
         </Paper>

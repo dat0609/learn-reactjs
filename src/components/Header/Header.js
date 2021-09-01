@@ -32,6 +32,10 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.grey[500],
     zIndex: 1,
   },
+  link: {
+    color: '#fff',
+    textDecoration: 'none',
+  },
 }));
 
 const MODE = {
@@ -80,11 +84,15 @@ export default function Header() {
             <Link to="/"> React</Link>
           </Typography>
 
-          <NavLink to="/todo-list" activeClassName="active">
+          <NavLink to="/product" className={classes.link}>
+            <Button color="inherit">Product</Button>
+          </NavLink>
+
+          <NavLink to="/todo-list" className={classes.link}>
             <Button color="inherit">To do</Button>
           </NavLink>
 
-          <NavLink to="/album" activeClassName="active">
+          <NavLink to="/album" className={classes.link}>
             <Button color="inherit">Album</Button>
           </NavLink>
 
