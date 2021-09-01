@@ -36,7 +36,7 @@ function FilterByCategory(props) {
   const classes = useStyles();
 
   useEffect(() => {
-    (async () => {
+    (async function fetchCategory() {
       try {
         const list = await categoryApi.getAll();
 

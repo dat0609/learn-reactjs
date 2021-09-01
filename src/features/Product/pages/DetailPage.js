@@ -1,8 +1,10 @@
-import { Box, Container, Grid, makeStyles, Paper } from '@material-ui/core';
+import { Box, Container, Grid, LinearProgress, makeStyles, Paper } from '@material-ui/core';
 import React from 'react';
-import { useRouteMatch } from 'react-router-dom';
+import { Route, useRouteMatch, Switch } from 'react-router-dom';
 import AddToCartForm from '../components/AddToCartForm';
+import ProductDescription from '../components/ProductDescription';
 import ProductInfo from '../components/ProductInfo';
+import ProductMenu from '../components/ProductMenu';
 import ProductThumbnail from '../components/ProductThumbnail';
 import useProductDetail from '../Hooks/useProductDetail';
 
@@ -31,13 +33,19 @@ DetailPage.propTypes = {};
 
 function DetailPage(props) {
   const classes = useStyles();
+
   const {
     params: { productId },
+    url,
   } = useRouteMatch();
 
   const { product, loading } = useProductDetail(productId);
   if (loading) {
-    return <Box>Loading</Box>;
+    return (
+      <Box>
+        <LinearProgress />
+      </Box>
+    );
   }
 
   const handleAddToCart = (values) => {
@@ -58,6 +66,14 @@ function DetailPage(props) {
             </Grid>
           </Grid>
         </Paper>
+
+        <ProductMenu />
+
+        <Switch>
+          <Route path={url} exact>
+            <ProductDescription product={product} />
+          </Route>
+        </Switch>
       </Container>
     </Box>
   );
